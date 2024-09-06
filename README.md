@@ -1,11 +1,11 @@
 # JEPEGMIX2-P
 
 # Download JEPEGMIX2
-The current release (Version 0.1.0) of JEPEGMIX2-P is for a Linux user. The pre-compiled executables for other operating systems (e.g.,  Windows, MacOS) will be available soon. The latest source codes of JEPEGMIX2-P are available upon request (chris.chatzinakos@vcuhealth.org). 
+The current release (Version 0.2.0) of JEPEGMIX2-P is for a Linux user. The pre-compiled executables for other operating systems (e.g.,  Windows, MacOS) will be available soon. The latest source codes of JEPEGMIX2-P are available upon request (christos.chatzinakos@downstate.edu). 
 
 |**Direct download link**|**Versiom**|**Release Date**|**Note**|
 |:---|:---|:---|:---|
-|[JEPEGMIX2-P for a Linux user](https://www.dropbox.com/sh/tiedrhw8ncbl01n/AAAQpphs1OWHZPj2397n0t-ta?dl=0)|v01.1.0|07/16/2018|Includes info file for several scenarios|
+|[JEPEGMIX2-P (jepegmix2_P2) for a Linux user](https://www.dropbox.com/sh/tiedrhw8ncbl01n/AAAQpphs1OWHZPj2397n0t-ta?dl=0)|v02.1.0|09/06/2024|Includes info file for several scenarios|
 
 # Download Reference Panels
 |**Direct download link**|**Number of Samples**|**Number of populations**|**NCBI build**|**Release Date**|**Note**|
@@ -50,7 +50,7 @@ Here are the 33Kg population abbreviations used by JEPEGMIX2-P. AFR is an abbrev
 
 |**Direct download link**|**Version**|**Release Date**|
 |:---|:---|:---|
-|[SNP annotations](https://www.dropbox.com/sh/doxfref8zvempr8/AACBg0rMUJtxN7X26G707SiFa?dl=0)|v0.3.0|07/16/2017|
+|[SNP annotations](https://www.dropbox.com/sh/doxfref8zvempr8/AACBg0rMUJtxN7X26G707SiFa?dl=0)|v2.1.0|09/06/2024|
 
 # JEPEGMIX2-P Input File Format
 ###JEPEGMIX2-P takes as input a plain text file with rows and columns denoting SNPs and variables, respectively. The first line of the input file should be column names/headers. Data entries on each line should be separated by white space. 
@@ -104,10 +104,10 @@ Gene   TW_Artery_Coronary_0.5      DCDC2B   1   32160918   33610468   11     0.0
 
 # JEPEGMIX2-P output file format for pathway analysis
 
-The JEPEGMIX2-P output file, for pathway analysis, has ten columns: 1) type name (Type), 2) tissue name (Tissue), 3) gene name (Geneid), 4) degrees of freedom (df), 5) chi-square (Chisq), 6) JEPEGMIX2-P p-value (Pval) 7) JEPEGMIX2-P q-value with Holm method (Qval_holm), 8) JEPEGMIX2-P q-value with FDR method (Qval_fdr), 9) JEPEGMIX2-P dominate signal (Dom_sign) and 10) JEPEGMIX2-P significant genes (Sign_genes). The first line of the output file is column names/headers.  Here is a sample JEPEGMIX2-P pathways output file, with 3 pathways:
+The JEPEGMIX2-P output file, for pathway analysis, has ten columns: 1) type name (Type), 2) tissue name (Tissue), 3) gene name (Geneid), 4) degrees of freedom (df), 5) chi-square (Chisq), 6) JEPEGMIX2-P p-value (Pval) 7) JEPEGMIX2-P q-value with Holm method (Qval_holm), 8) JEPEGMIX2-P q-value with FDR method (Qval_fdr), 9) JEPEGMIX2-P Direction_of_Pathway (Direction_of_Pathway) and 10) JEPEGMIX2-P significant genes (Significant_genes). The first line of the output file is column names/headers.  Here is a sample JEPEGMIX2-P pathways output file, with 3 pathways:
 
 ```
-Type          Tissue         NAME                                      df   Chisq      Pval     Qval_holm   Qval_fdr Dom_sign Sign_genes
+Type          Tissue         NAME                                      df   Chisq      Pval     Qval_holm   Qval_fdr Direction_of_Pathway Significant_genes
 
 Path_c Br_Put_bas_gang    GO_CYTOPLASMIC_MRNA_PROCESSING_BODY           7    8.06931   0.326522    1           1         8.17711   NA
 Path_c Br_Put_bas_gang    GO_CYTOPLASMIC_MRNA_PROCESSING_BODY_ASSEMBLY  1    1.12329   0.289211    1           1         1.12329   NA
@@ -120,19 +120,19 @@ Path_c Br_Put_bas_gang    GO_CYTOPLASMIC_REGION                         39   19.
 |:---|:---|:---|:---|:---|
 |--version|-v|none|none|Prints version information.|
 |--help|-h|none|none|Outputs a full description of all JEPEGMIX2-P options.|
-|--impute|-p|none|none|Imputes summary statistics of unmeasured functional SNPs using DISTMIX2 before JEPEGMIX2-P analysis.|
+|--impute|-p|none|FALSE|Imputes summary statistics of unmeasured functional SNPs using DISTMIX2 imputation before JEPEGMIX2-P analysis.|
 |--reference|-r|filename|none|The filename of the reference population data.|
 |--referenceIndex|-i|filename|none|The filename of the reference population index data.|
 |--annotation|-a|filename|none|The filename of the SNP annotation data set.|
 |--output|-o|filename|out.gene.jepegmix2.txt|The genes filename of JEPEGMIX2-P output.|
 |--zpath|-x|filename|out.path.jepegmix2.txt"|The pathways filename of JEPEGMIX2-P output.|
-|--cpath|-j|filename|out.cor.path.jepegmix2.txt|The correlations filename of JEPEGMIX2-P output.|
 |--populationWeight|-w|filename|none|The filename of the super population weight data.|
-|--windowSize|-n|decimal|0.5|The size of the DISTMIX2 prediction window (Mb).|
-|--wingSize|-m|decimal|0.25|The size of the wing padded on the left and right of the DISTMIX2 prediction window (Mb).|
-|--snp_el|none|none|none|Snp elimination flag.|
-|--measured_snps|-z|integer|50|Number of mewsured Snps.|
-|--rmv|none|none|none|Rare variant flag.|
-|--exc|none|none|none|Which chr and interval to exclude (--exc 6:25-35,5:10-20)(Position is in MB).|
-|--gnexc|none|none|none|Which gene include (--gnexc C4A,NOC2L).|
-|--chromosome|-c|none|none|The chromosome number (or the chromosome number and arm, e.g., -c 1q)|
+|--windowSize|-n|decimal|0.5|The size of the DISTMIX2 imputation prediction window (Mb).|
+|--wingSize|-m|decimal|0.25|The size of the wing added on the left and right of the DISTMIX2 imputation prediction window (Mb).|
+|--snp_el|none|none|FALSE|Conditional analysis flag.|
+|--measured_snps|-z|integer|50|Number of measured Snps.|
+|--rmv|none|none|FALSE|Rare variant flag.|
+|--snps_perc|-s|decimal|0.75|SNPs Percentage belong to the model|
+|--exc|none|none|none|Which chr(s) and interval(s) to exclude (--exc 6:25-35,5:10-20)(Position is in MB), only for pathway analysis.|
+|--gnexc|none|none|none|Which gene include (--gnexc C4A,NOC2L), only for pathway analysis.|
+|--chromosome|-c|none|none|The chromosome number (or the chromosome number and arm, e.g., -c 1q), only for gene analysis|
